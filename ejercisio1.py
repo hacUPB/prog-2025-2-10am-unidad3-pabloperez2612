@@ -27,5 +27,26 @@ else:
                 print ("tiene obesidad 2")
             else:
                 print("tienes obesidad extrema")
-                
-    
+
+## Con el elif
+peso= input ("ingresa tu peso en kg")
+altura = input ("ingresa tu talla en metros: ")
+peso = float(peso)         
+altura = float(altura)
+#Calculos
+imc = peso/altura**2
+#mostrar imc
+print ("tu imc =", imc)
+
+if imc < 18.5 :
+    mensaje = "bajo peso"
+elif imc < 25 :
+    mensaje = "peso normal"
+elif imc < 35 :|
+    mensaje = "Obesidad tipo 1"
+elif imc < 40 :
+    mensaje = "obesidad tipo 2"
+else
+    mensaje = "obesidad extrema"
+
+print(f"Paciente {nombre}, tiene un IMC de {imc} y su condicion es {mensaje}.")
