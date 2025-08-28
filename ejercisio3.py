@@ -9,11 +9,11 @@ una empresa de vaporizadores, vende vaporizadores al por mayor, en caso de que e
 ##ejercisio propuesto por compañero
 se le pide al usuario que ingrese un numero entero y que muestre un mensaje si el numero es divisible por 3.
 numero = int(input("ingrese un numero entero"))
-print(numero % 3)
 residuo = (numero % 3)
+print(numero % 3)
 if residuo = 0 :
     print (f"{numero} es divisible entre 3")
-    
+
 ## matchopcion = input("seleccion una opcion: ")
 
 
