@@ -71,9 +71,12 @@ fin opcion
 tiempo_inicio_estabilizacion = tiempo_vuelo - tiempo_estabilizacion 
 tiempo_actual = 0
 Mientras  tiempo_actual < tiempo_inicio_estabilizacion
+    
     tiempo_actual = tiempo_actual + intervalo_1
+   
     dT_dt = -k * (Te_actual - Te)
     Te_nueva = Te_actual + (dT_dt * intervalo_1)
+   
     Te_actual = Te_nueva
     
     SI tiempo_actual < tiempo_inicio_estabilizacion ENTONCES   "hecho IA"
@@ -88,13 +91,13 @@ Mientras  tiempo_actual < tiempo_inicio_estabilizacion
         mostrar (" la temperatura del lg es menor que la temperatura maxima, verificar si es menor que la minima")
         si Te_min > Te_actual :
             mostrar ("cuidado temperatura muy fria")
-            Te_actual = Te_actual + (dT_dt * intervalo_2)
+            Te_actual = Te_actual + (dT_dt )* (intervalo_2 / 60)
             si no :
                 mostrar (" temperatura en rango ideal")
         fin si
     si no : 
         mostrar (" cuidado temperarura muy caliente ")
-        Te_actual = Te_actual - (dT_dt * intervalo_2)
+        Te_actual = Te_actual - (dT_dt) * (intervalo_2 / 60)
     fin si
     si tiempo_actual >= tiempo_inicio_estabilizacion :
         mostrar ("Fase de estabilizacion, Asegurar temperatura estable para el aterrizaje.")
@@ -105,7 +108,101 @@ Mientras  tiempo_actual < tiempo_inicio_estabilizacion
         imprimir ("temperatura actual")
 FIN MIENTRAS
 
+
 FIN
 ´´´´
-
 ## pseudocodigo 2
+
+
+´´
+Inicio
+
+Factor_de_ajuste = 0.0004  
+Presion_Maxima = 18
+Presion_Minima = 14
+
+mostrar  "Ingrese la altitud inicial: "
+Leer altitud_inicial
+
+mostrar "Ingrese la altitud de crucero: "
+Leer altitud_crucero
+
+mostrar "Ingrese la presión exterior inicial: "
+Leer presion_exterior
+
+presion_cabina_actual ← presion_exterior
+mostrar "Simulación iniciada"
+mostrar "Presión de cabina inicial igualada a la presión exterior."
+
+altitud = altitud_inicial
+subiendo = VERDADERO
+
+Mientras verdadero hacer
+    si subiendo entonces
+        si altitud < altitud_crucero entonces
+            altitud = altitud + 500
+            si altitud > altitud_crucero entonces
+                altitud = altitud_crucero
+            fin si
+        sino
+            subiendo = FALSO
+        fin si
+    sino
+        si altitud > 0 entonces
+            altitud = altitud - 500
+            si altitud < 0 entonces
+                altitud = 0
+            fin si
+        sino
+            salir del ciclo
+        fin si
+    fin si
+
+    si altitud <= 10000 entonces
+        presion_objetivo = presion_exterior + (altitud * FACTOR_DE_AJUSTE)
+        mensaje = "Ajustando presión de cabina."
+    sino si altitud > 10000 y altitud <= 12000 entonces
+        presion_objetivo = 15
+        mensaje = "Manteniendo presión de cabina en crucero."
+    sino
+        presion_objetivo = presion_exterior - (altitud * FACTOR_DE_AJUSTE)
+        mensaje = "Ajustando presión de cabina."
+    fin si
+
+    presion_cabina_actual = presion_objetivo
+
+    si presion_cabina_actual > PRESION_MAXIMA entonces
+        presion_cabina_actual = presion_cabina_actual - 0.3
+        mensaje = mensaje + " Exceso de presión"
+    sino si presion_cabina_actual < PRESION_MINIMA entonces
+        presion_cabina_actual = presion_cabina_actual + 0.3
+        mensaje = mensaje + " Baja presión"
+    sino
+        mensaje = mensaje + " Presión de cabina óptima"
+    fin si
+
+    mostrar "Altitud:  {altitud}m , Presión Cabina: {presion_cabina_actual} psi , Estado: {mensaje}"
+
+fin mientras
+
+si presion_cabina_actual ≠ presion_exterior entonces
+    presion_cabina_actual = presion_exterior
+    mensaje = "Avión en tierra"
+sino
+    mensaje = "Avión en tierra."
+fin si
+
+mostrar "Aterrizaje completado"
+mostrar "Estado final: ", {mensaje}, " Presión final: ", {presion_cabina_actual}, " psi"
+
+fin
+´´´´
+
+## modificaciones lista, diccionario
+
+### lista
+vamos a hacer lista en la cual vamos a encontrar los datos generados por el bucle
+
+### diccionario
+en el diccionario vamos a agregar los paramatetros necesarios en el codigo
+-
