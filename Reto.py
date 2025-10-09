@@ -18,8 +18,6 @@ print("Presión de cabina inicial igualada a la presión exterior.")
 
 altitud = altitud_inicial
 subiendo = True
-                       3
-
 while True:
     if subiendo:
         if altitud < altitud_crucero:
